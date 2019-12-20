@@ -1,0 +1,33 @@
+{
+  "name": "url-shortener",
+  "version": "1.0.0",
+  "description": "An url shortener service",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app",
+    "dev": "nodemon app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ablin42/url-shortener.git"
+  },
+  "keywords": [
+    "url",
+    "shortener"
+  ],
+  "author": "ablin42",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ablin42/url-shortener/issues"
+  },
+  "homepage": "https://github.com/ablin42/url-shortener#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "config": "^3.2.4",
+    "express": "^4.17.1",
+    "mongoose": "^5.8.1",
+    "shortid": "^2.2.15",
+    "valid-url": "^1.0.9"
+  }
+}
