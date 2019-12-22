@@ -21,4 +21,13 @@ try {
     return res.status(500).json({error: true, message: err.message});
 }})
 
+router.get('/', async (req, res) => {
+try {
+    return res.status(200).send('enter your url on this page');
+    return res.status(200).render('index');
+} catch (err) {
+    console.log("Index route error", err.message);
+    return res.status(500).json({error: true, message: err.message});
+}})
+
 module.exports = router;

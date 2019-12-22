@@ -3,6 +3,9 @@ const app = express();
 const connectDB = require('./config/db');
 const bodyParser = require('body-parser');
 
+app.set('view engine', 'ejs');
+app.use(express.static(__dirname + '/public'));
+
 // Middleware
 //-- Body parser --//
     // Parse app/x-www-form-urlencoded
