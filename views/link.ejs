@@ -1,0 +1,11 @@
+<%- include ("partials/head") -%>
+
+<div class="container">
+    <div class="url-container">
+        <% if (locals.shortUrl) { %>
+            <a href="<%= locals.longUrl %>" class="shortened-link"><%= locals.shortUrl %></a>
+        <% } %>
+    </div>
+</div>
+
+<%- include ("partials/footer") -%>
