@@ -24,7 +24,7 @@ body {
     color: #7F2CCB;
 }
 
-.navv {
+.navbar {
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -66,19 +66,6 @@ li a {
     background-color: rgba(127, 44, 203, 0.8);
 }
 
-.landing {
-    height: 90vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.landing h1 {
-    margin: 100px;
-    font-size: 50px;
-    color: #ae5fce;
-}
-
 .line {
     width: 30px;
     height: 3px;
@@ -94,8 +81,10 @@ li a {
     z-index: 3;
 }
 
+.navbar-container {width: 100%;}
+
 @media screen and (max-width: 768px) {
-    .navbar {
+    .navbar-container {
         position: fixed;
         top: 0;
         left: 0;
@@ -110,14 +99,10 @@ li a {
         pointer-events: none;
    }
 
-   .navbar.open {
+   .navbar-container.open {
         clip-path: circle(1200px at 90% -10%);
         -webkit-clip-path: circle(1200px at 90% -10%);
         pointer-events: all;
-   }
-
-   .landing {
-       flex-direction: column;
    }
 
    .nav-links li {
@@ -126,26 +111,32 @@ li a {
         margin: 50px 0;
    }
 
-   .hamburger {
-       display: block
-   }
+   .hamburger {display: block;}
   
-   .navv {
+   .navbar {
         display: block;
         padding: 20px;
         width: 100%;
-        justify-content: none;
+        justify-content: normal;
         text-align: center;
     }
 
-    .contact {
-        margin: auto;
-    }
+    .contact {margin: auto;}
 
     .logo {
         margin: auto;
+        transition: all 0.5s ease 0.1s;
     }
+
+    .nav-links li, .logo, .cta {opacity: 0;}
+    .nav-links li:nth-child(1) {transition: all 0.5s ease 0.2s;}
+    .nav-links li:nth-child(2) {transition: all 0.5s ease 0.3s;}
+    .nav-links li:nth-child(3) {transition: all 0.5s ease 0.4s;}
+    .cta {transition: all 0.5s ease 0.5s;}
+    li.fade, .logo.fade, .cta.fade {opacity: 1;}
 }
+
+
 
 
 
