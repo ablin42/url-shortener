@@ -5,5 +5,5 @@ const links = document.querySelector('.nav-links li');
 const header = document.querySelector('.navbar');
 
 hamburger.addEventListener('click', () => {
-    navLinks.classList.toggle('open');
+    header.classList.toggle('open');
 })

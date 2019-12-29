@@ -9,7 +9,27 @@ body {
     background-color: coral;
 }
 
-/* HEADER */
+.logo {
+    cursor: pointer;
+    margin: 0;
+    color: #FFFFFF;
+    transition: ease-in-out 0.3s;
+    font-size: 2em;
+    font-family: 'Courier Prime', monospace;
+    /* flex-end : margin-right: auto; */
+    /*  order: 3; margin-left: auto;*/
+}
+
+.logo:hover {
+    color: #7F2CCB;
+}
+
+.navv {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
 header {
     /* height: 10vh */
     display: flex;
@@ -18,6 +38,32 @@ header {
     padding: 15px 10%;
     background-color: #303952;
     height: 10vh;
+}
+
+li {
+    list-style-type: none;
+    display: inline-block;
+    margin: 0 20px;
+}
+
+li a {
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+}
+
+.contact {
+    margin-left: 20px;
+    padding: 9px 25px;
+    background-color: rgba(127, 44, 203, 1);
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3 ease 0s;
+}
+
+.contact:hover {
+    background-color: rgba(127, 44, 203, 0.8);
 }
 
 .landing {
@@ -33,23 +79,38 @@ header {
     color: #ae5fce;
 }
 
+.line {
+    width: 30px;
+    height: 3px;
+    background: white;
+    margin: 5px;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: 0;
+    z-index: 3;
+}
+
 @media screen and (max-width: 768px) {
-    .nav-links {
+    .navbar {
         position: fixed;
+        top: 0;
         left: 0;
         background: #303952;
         height: 100vh;
         width: 100vw;
         flex-direction: column;
 
-        clip-path: circle(100px at 90% -10%);
-        -webkit-clip-path: circle(100px at 90% -10%);
+        clip-path: circle(100px at 90% -15%);
+        -webkit-clip-path: circle(100px at 90% -15%);
         transition: all 1s ease-out;
         pointer-events: none;
-       
    }
 
-   .nav-links.open{
+   .navbar.open {
         clip-path: circle(1200px at 90% -10%);
         -webkit-clip-path: circle(1200px at 90% -10%);
         pointer-events: all;
@@ -65,20 +126,24 @@ header {
         margin: 50px 0;
    }
 
-   .line {
-       width: 30px;
-       height: 3px;
-       background: white;
-       margin: 5px;
-   }
-
    .hamburger {
-        position: absolute;
-        cursor: pointer;
-        right: 5%;
-        /*top: 50%;*/
-        transform: translate(-5%, -50%);
-        z-index: 2;
+       display: block
+   }
+  
+   .navv {
+        display: block;
+        padding: 20px;
+        width: 100%;
+        justify-content: none;
+        text-align: center;
+    }
+
+    .contact {
+        margin: auto;
+    }
+
+    .logo {
+        margin: auto;
     }
 }
 
