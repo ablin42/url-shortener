@@ -7,10 +7,23 @@ const config = require('config');
 const utils = require('../utils');
 const Url = require('../models/Url');
 
+const {validationResult} = require('express-validator');
+const {vUrl} = require('../validators/vUrl');
+
 // @route   POST /api/url/shorten
 // @desc    Create short URL from posted long URL /// Send short URL if long URL already exist in DB
-router.post('/shorten', async (req, res) => {
+router.post('/shorten', vUrl, async (req, res) => {
 try {
+    let errors = [];
+    const vResult = validationResult(req);
+    if (!vResult.isEmpty()) {
+        vResult.errors.forEach(element => {
+            errors.push(element)
+        });
+    }
+    if (errors.length > 0)
+        throw new Error("Incorrect URL");
+
     const { longUrl } = req.body;
     const baseUrl = config.get('baseURL');
     const urlCode = shortid.generate();
@@ -38,8 +51,8 @@ try {
     } else 
         return res.status(401).json({error: true, message: "Invalid long URL"});
 } catch (err) {
-    console.error("Shorten api error:", err.message, err);
-    return res.status(500).json({error: true, message: err.message});
+    console.error("Shorten api error:", err.message);
+    return res.status(200).json({error: true, message: err.message});
 }})
 
 module.exports = router;
