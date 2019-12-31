@@ -28,10 +28,10 @@ try {
     const baseUrl = config.get('baseURL');
     const urlCode = shortid.generate();
 
-    if (!validUrl.isUri(baseUrl)) 
+    if (!validUrl.isWebUri(baseUrl)) 
         return res.status(401).json({error: true, message: "Invalid base URL"});
 
-    if (validUrl.isUri(longUrl)) {
+    if (validUrl.isWebUri(longUrl)) {
         var [err, url] = await utils.promise(Url.findOne({ longUrl }));
         if (err)
             throw new Error("An error occured while looking for your URL");
