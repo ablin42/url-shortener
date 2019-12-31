@@ -8,5 +8,14 @@ module.exports = {
         }).catch(err =>
             [pe(err)]
         );
+    },
+    checkValidationResult: async function(result) {
+        let errors = [];
+        if (!result.isEmpty()) {
+            result.errors.forEach(element => {
+                errors.push(element)
+            });
+        }
+        return errors;
     }
 }

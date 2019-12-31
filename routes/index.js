@@ -20,13 +20,7 @@ try {
 // @ POST route for front-end to API, can probably be replaced with ajax call
 router.post('/', vUrl, async (req, res) => {
 try {
-    let errors = [];
-    const vResult = validationResult(req);
-    if (!vResult.isEmpty()) {
-        vResult.errors.forEach(element => {
-            errors.push(element)
-        });
-    }
+    let errors = await utils.checkValidationResult(validationResult(req));
     if (errors.length > 0)
         throw new Error("Incorrect URL");
     
@@ -60,14 +54,7 @@ try {
 // @desc    Redirect to long/original URL from short URL
 router.get('/:urlCode', vCode, async (req, res) => {
 try {
-    let errors = [];
-    const vResult = validationResult(req);
-    if (!vResult.isEmpty()) {
-        vResult.errors.forEach(element => {
-            errors.push(element)
-        });
-    }
-    console.log(errors)
+    let errors = await utils.checkValidationResult(validationResult(req));
     if (errors.length > 0)
         throw new Error("Incorrect Code");
         
@@ -89,14 +76,7 @@ try {
 // @desc    Display the shortened link
 router.get('/link/:urlCode', vCode, async (req, res) => {
 try {
-    let errors = [];
-    const vResult = validationResult(req);
-    if (!vResult.isEmpty()) {
-        vResult.errors.forEach(element => {
-            errors.push(element)
-        });
-    }
-    console.log(errors)
+    let errors = await utils.checkValidationResult(validationResult(req));
     if (errors.length > 0)
         throw new Error("Incorrect Code");
 

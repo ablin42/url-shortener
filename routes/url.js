@@ -14,13 +14,7 @@ const {vUrl} = require('../validators/vUrl');
 // @desc    Create short URL from posted long URL /// Send short URL if long URL already exist in DB
 router.post('/shorten', vUrl, async (req, res) => {
 try {
-    let errors = [];
-    const vResult = validationResult(req);
-    if (!vResult.isEmpty()) {
-        vResult.errors.forEach(element => {
-            errors.push(element)
-        });
-    }
+    let errors = await utils.checkValidationResult(validationResult(req));
     if (errors.length > 0)
         throw new Error("Incorrect URL");
 
