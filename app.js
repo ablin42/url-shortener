@@ -22,15 +22,15 @@ app.use("/", require("./routes/index"));
 app.use("/api/url", require("./routes/url"));
 
 app.get("*", (req, res) => {
-  try {
-    let obj = {
-      active: "404",
-    };
-    res.status(404).render("404", obj);
-  } catch (err) {
-    console.error("404 PAGE ERROR:", err.message);
-    res.status(500).render("views/index", { active: "Home" });
-  }
+	try {
+		let obj = {
+			active: "404"
+		};
+		res.status(404).render("404", obj);
+	} catch (err) {
+		console.error("404 PAGE ERROR:", err.message);
+		res.status(500).render("views/index", { active: "Home" });
+	}
 });
 
 const port = process.env.PORT;
