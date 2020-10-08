@@ -5,7 +5,6 @@ const validUrl = require("valid-url");
 
 const utils = require("../utils");
 const Url = require("../models/Url");
-
 const { validationResult } = require("express-validator");
 const { vUrl, vCode } = require("../validators/vUrl");
 
@@ -28,7 +27,7 @@ router.post("/", vUrl, async (req, res) => {
 		if (validUrl.isWebUri(longUrl)) {
 			let options = {
 				method: "POST",
-				uri: "http://localhost:9191/api/url/shorten", //change URL here
+				uri: `${process.env.BASEURL}/api/url/shorten`, //change URL here
 				body: { longUrl },
 				json: true
 			};

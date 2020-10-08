@@ -1,11 +1,18 @@
 <%- include ("partials/head") -%>
 
 <div class="container">
-    <div class="url-container">
-        <% if (locals.shortUrl) { %>
-            <a href="<%= locals.longUrl %>" class="shortened-link"><%= locals.shortUrl %></a>
-        <% } %>
-    </div>
+	<div class="url-container">
+		<% if (locals.shortUrl) { %>
+		<div class="clipboard-wrapper">
+			<h2 data-clipboard>Copy to clipboard</h2>
+			<a data-clipboard href="#"><i class="fas fa-copy"></i></a>
+		</div>
+		<a href="<%= locals.longUrl %>" class="shortened-link heroAnim"><%= locals.shortUrl %></a>
+		<% } %>
+		<form action="/">
+			<button class="btn-404"><i class="fas fa-home fa-2x" aria-hidden="true"></i></button>
+		</form>
+	</div>
 </div>
 
 <%- include ("partials/footer") -%>

@@ -1,21 +1,17 @@
 <%- include ("partials/head") -%>
 
 <div class="container">
-  <h1>Dead simple URL shortener</h1>
-  <h2>Keep track of your generated links</h2>
+	<div class="hero-text">
+		<h1 class="heroAnim">Dead simple URL shortener</h1>
+		<h2 class="heroAnim">Copy and paste your link below</h2>
+	</div>
 
-  <form method="POST" action="/" class="shorten-form">
-    <input
-      name="longUrl"
-      type="text"
-      class="search-txt"
-      placeholder="Your link here..."
-      required
-    />
-    <button type="submit" class="search-btn">
-      <i class="fas fa-arrow fa-arrow-right"></i>
-    </button>
-  </form>
+	<form method="POST" action="/" class="shorten-form">
+		<input name="longUrl" type="text" class="search-txt" placeholder="Your link here..." required />
+		<button type="submit" class="search-btn">
+			<i class="fas fa-arrow fa-arrow-right"></i>
+		</button>
+	</form>
 </div>
 
 <%- include ("partials/footer") -%>

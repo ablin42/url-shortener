@@ -2,6 +2,49 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 //font-family: 'Roboto', sans-serif;d
 
+$colors: (
+	main: #08ad5f,
+	main-light: lighten(#08ad5f, 10%),
+	light-shade: #f1f1f1,
+	lighter-shade: lighten(#f1f1f1, 10%),
+	dark-shade: #2b2b2b,
+	darker-shade: darken(#2b2b2b, 10%)
+);
+
+@function color($colorName) {
+	@return map-get($colors, $colorName);
+}
+
+.dark-mode {
+	filter: invert(1) hue-rotate(180deg);
+
+	.invert {
+		filter: invert(1) hue-rotate(180deg);
+	}
+}
+
+html {
+	background: url("./bg/what-the-hex.png");
+
+	--main: #08ad5f;
+	--main-light: #0ade7a;
+	--light-shade: #f1f1f1;
+	--lighter-shade: white;
+	--dark-shade: #2b2b2b;
+	--darker-shade: #121212;
+}
+
+html[data-theme="dark"] {
+	background: url("./bg/diagmonds.png");
+
+	--main: #08ad5f;
+	--main-light: #0ade7a;
+	--dark-shade: #f1f1f1;
+	--darker-shade: white;
+	--light-shade: #2b2b2b;
+	--lighter-shade: #121212;
+}
+
 * {
 	box-sizing: border-box;
 	margin: 0;
@@ -18,65 +61,104 @@ html {
 
 body {
 	overflow: hidden;
+	//background: url("./bg/diagonal_striped_brick.png");
+	//background-size: cover;
+}
+
+input:focus,
+textarea:focus,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill:focus {
+	outline: none !important;
+	background-color: var(--dark-shade) !important;
+	//border: 2px solid var(--brand-blue-m2) !important;
+}
+
+/* Change Autocomplete styles in Chrome*/
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+	-webkit-text-fill-color: var(--main) !important;
+	background-color: var(--dark-shade) !important;
+	border: none !important;
+	-webkit-box-shadow: inset 0px 0px 30px 30px var(--dark-shade) !important;
+	box-shadow: inset 0px 0px 30px 30px var(--dark-shade) !important;
 }
 
 .container {
+	margin-left: 0 !important;
 	height: 90%;
 	display: flex;
 	align-items: center;
 	margin-right: auto;
-	margin-left: auto;
 	flex-direction: column;
 	justify-content: center;
 
-	h1 {
-		font-size: 50px;
-	}
+	.hero-text {
+		position: absolute;
+		top: 25%;
+		text-align: center;
 
-	h2 {
-		font-size: 25px;
+		h1 {
+			font-size: 4.5em;
+			color: var(--main);
+			text-shadow: 2px 2px #4e4e4e7d;
+		}
+
+		h2 {
+			margin-top: -17px;
+			font-size: 2em;
+			color: var(--main-light);
+			text-shadow: 1px 1px #4e4e4e7d;
+		}
 	}
 }
 
 .shorten-form {
-	width: 360px;
+	width: 50%;
 	height: 50px;
-	border: 2px solid black;
-	border-radius: 30px;
-	background-color: #ffffff;
+	position: absolute;
 
 	.search-txt {
+		border-radius: 30px;
+		background-color: var(--dark-shade);
 		border: 0;
 		width: 100%;
 		height: 100%;
-		background: none;
-		padding: 0 30px;
+		padding: 0 40px;
 		font-size: 20px;
 		font-weight: 600;
-		color: #473f97;
+		color: var(--main);
 		outline: none;
 		margin-right: 50px;
-	}
+		-webkit-box-shadow: inset 0px 0px 10px 0px var(--darker-shade);
+		-moz-box-shadow: inset 0px 0px 10px 0px var(--darker-shade);
+		box-shadow: inset 0px 0px 10px 0px var(--darker-shade);
 
+		&:focus {
+			background-color: var(--darker-shade);
+		}
+	}
 	.search-txt::placeholder {
-		color: var(--color-shade-3);
+		color: var(--main);
 	}
 
 	.search-btn {
 		position: absolute;
-		top: 0%;
+		top: -1%;
 		right: 0;
 		width: 50px;
 		height: 100%;
 		background: none;
 		border: 0;
 		outline: none;
-		color: var(--color-shade-1);
+		color: #05c66c;
 		cursor: pointer;
-		font-size: 18px;
+		font-size: 26px;
 		transform: rotate(45deg);
-		opacity: 1;
-		transition: 0.3s linear;
+		opacity: 0;
+		transition: 0.3s ease-in-out;
 	}
 }
 
@@ -84,21 +166,71 @@ body {
 .url-container {
 	width: 100%;
 	text-align: center;
+	display: flex;
+	flex-direction: column;
 
 	.shortened-link {
-		color: #fff;
+		font-size: 4.5em;
+		color: var(--main);
+		text-shadow: 2px 2px #4e4e4e7d;
 		font-weight: 600;
-		font-size: 60px;
+		margin-bottom: 0.5em;
 		text-decoration: none;
+		transition: 0.2s ease-in-out;
+		&:hover {
+			color: var(--main-light);
+		}
+	}
+
+	.clipboard-wrapper {
+		width: 100%;
+		position: absolute;
+		top: 25%;
+
+		.fa-copy {
+			color: var(--main);
+			font-size: 3em;
+			transition: 0.3s ease-in-out;
+			&:hover {
+				color: var(--main-light);
+				transform: scale(1.25);
+			}
+		}
+
+		h2 {
+			color: var(--main);
+			cursor: pointer;
+			transition: 0.3s ease-in-out;
+			&:hover {
+				color: var(--main-light);
+			}
+		}
 	}
 }
 
 /* 404 */
 .not-found {
-	color: white;
+	color: var(--main);
 	font-size: 250px;
 	font-weight: 600;
-	text-shadow: 5px 5px 20px var(--color-shade-1);
+	text-shadow: 5px 5px 20px rgba(43, 43, 43, 0.5);
+}
+
+.btn-404 {
+	cursor: pointer;
+	margin-top: 1em;
+	padding: 15px;
+	width: 200px;
+	color: var(--main);
+	background-color: var(--dark-shade);
+	border: 0;
+	transition: ease-in 0.2s;
+
+	&:hover {
+		border: none !important;
+		color: var(--dark-shade);
+		background-color: var(--main);
+	}
 }
 
 /* FOOTER */
@@ -115,8 +247,84 @@ footer {
 		font-weight: 600;
 
 		a {
-			color: black;
+			color: var(--main);
 			text-decoration: none;
+			transition: 0.2s ease-in-out;
+
+			&:hover {
+				color: var(--main-light);
+				font-size: 2em;
+			}
 		}
 	}
+}
+
+@keyframes heroAnim {
+	0% {
+		transform: translateY(-80px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+.heroAnim {
+	animation: heroAnim 0.7s 1 0s ease-in-out;
+}
+
+input[type="checkbox"] {
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+label {
+	cursor: pointer;
+	text-indent: -9999px;
+	margin: 15px;
+	width: 52px;
+	height: 27px;
+	background: #2b2b2b;
+	float: left;
+	border-radius: 100px;
+	position: relative;
+}
+
+label:after {
+	content: "";
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 20px;
+	height: 20px;
+	background: #fff;
+	border-radius: 90px;
+	transition: 0.3s;
+}
+
+input:checked + label {
+	background: var(--main);
+}
+
+input:checked + label:after {
+	left: calc(100% - 5px);
+	transform: translateX(-100%);
+}
+
+label:active:after {
+	width: 45px;
+}
+
+html.transition,
+html.transition *,
+html.transition *:before,
+html.transition *:after {
+	transition: all 750ms !important;
+	transition-delay: 0 !important;
+}
+
+.toggle-container {
+	position: absolute;
 }
