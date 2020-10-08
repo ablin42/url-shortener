@@ -69,18 +69,3 @@ let trans = () => {
 		document.documentElement.classList.remove("transition");
 	}, 750);
 };
-
-function triggerAnimations() {
-	let toAnimate = document.querySelectorAll(`[data-animation]`);
-
-	toAnimate.forEach(item => {
-		item.addEventListener("animationend", function () {
-			item.classList.remove(animationName);
-		});
-
-		let animationName = item.dataset.animation;
-		item.classList.add(animationName);
-	});
-}
-
-window.onload = "triggerAnimations()";

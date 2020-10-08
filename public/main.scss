@@ -23,6 +23,37 @@ $colors: (
 	}
 }
 
+$min_width: 500px;
+$max_width: 1920px;
+$min_font: 16px;
+$max_font: 24px;
+
+@function strip-unit($value) {
+	@return $value / ($value * 0 + 1);
+}
+
+@mixin fluid-type($min-vw, $max-vw, $min-font-size, $max-font-size) {
+	$u1: unit($min-vw);
+	$u2: unit($max-vw);
+	$u3: unit($min-font-size);
+	$u4: unit($max-font-size);
+
+	@if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
+		& {
+			font-size: $min-font-size;
+			@media screen and (min-width: $min-vw) {
+				font-size: calc(
+					#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} *
+						((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)})
+				);
+			}
+			@media screen and (min-width: $max-vw) {
+				font-size: $max-font-size;
+			}
+		}
+	}
+}
+
 html {
 	background: url("./bg/diagonal_striped_brick.png");
 
@@ -56,13 +87,9 @@ body,
 html {
 	width: 100vw;
 	height: 100vh;
+	min-width: 500px;
 	margin: 0;
-}
-
-body {
 	overflow: hidden;
-	//background: url("./bg/diagonal_striped_brick.png");
-	//background-size: cover;
 }
 
 input:focus,
@@ -72,7 +99,6 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill:focus {
 	outline: none !important;
 	background-color: var(--dark-shade) !important;
-	//border: 2px solid var(--brand-blue-m2) !important;
 }
 
 /* Change Autocomplete styles in Chrome*/
@@ -87,34 +113,43 @@ select:-webkit-autofill {
 }
 
 .container {
-	height: 90%;
+	height: 95%;
 	display: flex;
 	align-items: center;
 	flex-direction: column;
 	justify-content: center;
 
 	.hero-text {
-		position: absolute;
-		top: 25%;
 		text-align: center;
+		margin-bottom: 2em;
+		margin-top: 100px;
 
 		h1 {
-			font-size: 4.5em;
+			@include fluid-type($min_width, $max_width, 28px, 65px);
 			color: var(--main);
 			text-shadow: 2px 2px #4e4e4e7d;
 		}
 
 		h2 {
-			margin-top: -17px;
-			font-size: 2em;
+			margin-top: -10px;
+			@include fluid-type($min_width, $max_width, 20px, 30px);
 			color: var(--main-light);
 			text-shadow: 1px 1px #4e4e4e7d;
 		}
 	}
 }
 
+.form-wrapper {
+	position: relative;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 200px;
+}
+
 .shorten-form {
 	width: 50%;
+	min-width: 400px;
 	height: 50px;
 	position: absolute;
 
@@ -168,7 +203,7 @@ select:-webkit-autofill {
 	flex-direction: column;
 
 	.shortened-link {
-		font-size: 4.5em;
+		@include fluid-type($min_width, $max_width, 28px, 65px);
 		color: var(--main);
 		text-shadow: 2px 2px #4e4e4e7d;
 		font-weight: 600;
@@ -182,8 +217,6 @@ select:-webkit-autofill {
 
 	.clipboard-wrapper {
 		width: 100%;
-		position: absolute;
-		top: 25%;
 		display: flex;
 		justify-content: center;
 
@@ -225,6 +258,7 @@ select:-webkit-autofill {
 .btn-404 {
 	cursor: pointer;
 	margin-top: 1em;
+	height: 60px;
 	padding: 15px;
 	width: 200px;
 	color: var(--main);
@@ -249,7 +283,7 @@ footer {
 	z-index: 3;
 
 	.footer-text {
-		font-size: 1.3em;
+		font-size: 23px;
 		font-weight: 600;
 
 		a {
@@ -381,4 +415,12 @@ label:active:after {
 
 .tooltipAnim {
 	animation: tooltipAnim 0.2s 1 0s ease-in-out;
+}
+
+html.transition,
+html.transition *,
+html.transition *:before,
+html.transition *:after {
+	transition: all 750ms !important;
+	transition-delay: 0 !important;
 }
