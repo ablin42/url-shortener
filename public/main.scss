@@ -174,7 +174,7 @@ select:-webkit-autofill {
 		font-weight: 600;
 		margin-bottom: 0.5em;
 		text-decoration: none;
-		transition: 0.2s ease-in-out;
+		transition: color 0.2s ease-in-out;
 		&:hover {
 			color: var(--main-light);
 		}
@@ -190,7 +190,7 @@ select:-webkit-autofill {
 		.fa-copy {
 			color: var(--main);
 			font-size: 3em;
-			transition: 0.2s ease-in-out;
+			transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
 			&:hover {
 				color: var(--main-light);
 				transform: scale(1.25);
@@ -206,7 +206,7 @@ select:-webkit-autofill {
 			margin-right: 15px;
 			margin-top: 5px;
 			cursor: pointer;
-			transition: 0.2s ease-in-out;
+			transition: color 0.2s ease-in-out;
 			&:hover {
 				color: var(--main-light);
 			}
@@ -255,7 +255,7 @@ footer {
 		a {
 			color: var(--main);
 			text-decoration: none;
-			transition: 0.2s ease-in-out;
+			transition: font-size 0.2s ease-in-out, color 0.2s ease-in;
 
 			&:hover {
 				color: var(--main-light);
@@ -306,14 +306,6 @@ input:checked + label:after {
 
 label:active:after {
 	width: 45px;
-}
-
-html.transition,
-html.transition *,
-html.transition *:before,
-html.transition *:after {
-	transition: all 750ms !important;
-	transition-delay: 0 !important;
 }
 
 .toggle-container {

@@ -186,8 +186,8 @@ select:-webkit-autofill {
   font-weight: 600;
   margin-bottom: 0.5em;
   text-decoration: none;
-  -webkit-transition: 0.2s ease-in-out;
-  transition: 0.2s ease-in-out;
+  -webkit-transition: color 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out;
 }
 
 .url-container .shortened-link:hover {
@@ -209,8 +209,10 @@ select:-webkit-autofill {
 .url-container .clipboard-wrapper .fa-copy {
   color: var(--main);
   font-size: 3em;
-  -webkit-transition: 0.2s ease-in-out;
-  transition: 0.2s ease-in-out;
+  -webkit-transition: color 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out, transform 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
 }
 
 .url-container .clipboard-wrapper .fa-copy:hover {
@@ -228,8 +230,8 @@ select:-webkit-autofill {
   margin-right: 15px;
   margin-top: 5px;
   cursor: pointer;
-  -webkit-transition: 0.2s ease-in-out;
-  transition: 0.2s ease-in-out;
+  -webkit-transition: color 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out;
 }
 
 .url-container .clipboard-wrapper h2:hover {
@@ -280,8 +282,8 @@ footer .footer-text {
 footer .footer-text a {
   color: var(--main);
   text-decoration: none;
-  -webkit-transition: 0.2s ease-in-out;
-  transition: 0.2s ease-in-out;
+  -webkit-transition: font-size 0.2s ease-in-out, color 0.2s ease-in;
+  transition: font-size 0.2s ease-in-out, color 0.2s ease-in;
 }
 
 footer .footer-text a:hover {
@@ -332,16 +334,6 @@ input:checked + label:after {
 
 label:active:after {
   width: 45px;
-}
-
-html.transition,
-html.transition *,
-html.transition *:before,
-html.transition *:after {
-  -webkit-transition: all 750ms !important;
-  transition: all 750ms !important;
-  -webkit-transition-delay: 0 !important;
-          transition-delay: 0 !important;
 }
 
 .toggle-container {
