@@ -87,11 +87,9 @@ select:-webkit-autofill {
 }
 
 .container {
-	margin-left: 0 !important;
 	height: 90%;
 	display: flex;
 	align-items: center;
-	margin-right: auto;
 	flex-direction: column;
 	justify-content: center;
 
@@ -327,4 +325,8 @@ html.transition *:after {
 
 .toggle-container {
 	position: absolute;
+}
+
+#clipper {
+	display: none;
 }
