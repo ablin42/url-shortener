@@ -2,10 +2,12 @@ const express = require("express");
 const app = express();
 const connectDB = require("./config/db");
 const bodyParser = require("body-parser");
+const path = require("path");
 require("dotenv").config();
 
-app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
 // Middleware
 //-- Body parser --//
