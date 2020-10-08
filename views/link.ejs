@@ -4,10 +4,14 @@
 	<div class="url-container">
 		<% if (locals.shortUrl) { %>
 		<div class="clipboard-wrapper">
-			<h2 data-clipboard>Copy to clipboard</h2>
-			<a data-clipboard href="#"><i class="fas fa-copy"></i></a>
+			<div class="tooltip">
+				<h2 data-clipboard>Copy to clipboard</h2>
+				<a data-clipboard href="#"><i class="fas fa-copy"></i></a>
+
+				<span class="tooltiptext">Copied!</span>
+			</div>
 		</div>
-		<a href="<%= locals.longUrl %>" class="shortened-link heroAnim"><%= locals.shortUrl %></a>
+		<a target="_blank" href="<%= locals.longUrl %>" class="shortened-link heroAnim"><%= locals.shortUrl %></a>
 		<input type="hidden" value="<%= locals.shortUrl %>" id="clipper" />
 		<% } %>
 		<form action="/">

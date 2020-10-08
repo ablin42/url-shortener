@@ -11,7 +11,7 @@
 }
 
 html {
-  background: url("./bg/what-the-hex.png");
+  background: url("./bg/diagonal_striped_brick.png");
   --main: #08ad5f;
   --main-light: #0ade7a;
   --light-shade: #f1f1f1;
@@ -198,13 +198,19 @@ select:-webkit-autofill {
   width: 100%;
   position: absolute;
   top: 25%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .url-container .clipboard-wrapper .fa-copy {
   color: var(--main);
   font-size: 3em;
-  -webkit-transition: 0.3s ease-in-out;
-  transition: 0.3s ease-in-out;
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
 }
 
 .url-container .clipboard-wrapper .fa-copy:hover {
@@ -214,10 +220,16 @@ select:-webkit-autofill {
 }
 
 .url-container .clipboard-wrapper h2 {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   color: var(--main);
+  margin-right: 15px;
+  margin-top: 5px;
   cursor: pointer;
-  -webkit-transition: 0.3s ease-in-out;
-  transition: 0.3s ease-in-out;
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
 }
 
 .url-container .clipboard-wrapper h2:hover {
@@ -275,37 +287,6 @@ footer .footer-text a {
 footer .footer-text a:hover {
   color: var(--main-light);
   font-size: 2em;
-}
-
-@-webkit-keyframes heroAnim {
-  0% {
-    -webkit-transform: translateY(-80px);
-            transform: translateY(-80px);
-    opacity: 0;
-  }
-  100% {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes heroAnim {
-  0% {
-    -webkit-transform: translateY(-80px);
-            transform: translateY(-80px);
-    opacity: 0;
-  }
-  100% {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-.heroAnim {
-  -webkit-animation: heroAnim 0.7s 1 0s ease-in-out;
-          animation: heroAnim 0.7s 1 0s ease-in-out;
 }
 
 input[type="checkbox"] {
@@ -369,5 +350,110 @@ html.transition *:after {
 
 #clipper {
   display: none;
+}
+
+.tooltip {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.tooltip .tooltiptext {
+  width: 120px;
+  background-color: var(--dark-shade);
+  color: var(--light-shade);
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  left: 125%;
+  margin-left: -50px;
+  opacity: 0;
+  -webkit-transition: ease-in-out 0.3s;
+  transition: ease-in-out 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent var(--dark-shade) transparent transparent;
+}
+
+.tooltip-visible {
+  opacity: 1 !important;
+}
+
+@-webkit-keyframes heroAnim {
+  0% {
+    -webkit-transform: translateY(-80px);
+            transform: translateY(-80px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes heroAnim {
+  0% {
+    -webkit-transform: translateY(-80px);
+            transform: translateY(-80px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.heroAnim {
+  -webkit-animation: heroAnim 0.7s 1 0s ease-in-out;
+          animation: heroAnim 0.7s 1 0s ease-in-out;
+}
+
+@-webkit-keyframes tooltipAnim {
+  0% {
+    -webkit-transform: translateY(10px);
+            transform: translateY(10px);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+@keyframes tooltipAnim {
+  0% {
+    -webkit-transform: translateY(10px);
+            transform: translateY(10px);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+.tooltipAnim {
+  -webkit-animation: tooltipAnim 0.2s 1 0s ease-in-out;
+          animation: tooltipAnim 0.2s 1 0s ease-in-out;
 }
 /*# sourceMappingURL=main.css.map */

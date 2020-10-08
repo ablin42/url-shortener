@@ -24,7 +24,7 @@ $colors: (
 }
 
 html {
-	background: url("./bg/what-the-hex.png");
+	background: url("./bg/diagonal_striped_brick.png");
 
 	--main: #08ad5f;
 	--main-light: #0ade7a;
@@ -184,11 +184,13 @@ select:-webkit-autofill {
 		width: 100%;
 		position: absolute;
 		top: 25%;
+		display: flex;
+		justify-content: center;
 
 		.fa-copy {
 			color: var(--main);
 			font-size: 3em;
-			transition: 0.3s ease-in-out;
+			transition: 0.2s ease-in-out;
 			&:hover {
 				color: var(--main-light);
 				transform: scale(1.25);
@@ -196,9 +198,15 @@ select:-webkit-autofill {
 		}
 
 		h2 {
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
 			color: var(--main);
+			margin-right: 15px;
+			margin-top: 5px;
 			cursor: pointer;
-			transition: 0.3s ease-in-out;
+			transition: 0.2s ease-in-out;
 			&:hover {
 				color: var(--main-light);
 			}
@@ -255,21 +263,6 @@ footer {
 			}
 		}
 	}
-}
-
-@keyframes heroAnim {
-	0% {
-		transform: translateY(-80px);
-		opacity: 0;
-	}
-	100% {
-		transform: translateY(0);
-		opacity: 1;
-	}
-}
-
-.heroAnim {
-	animation: heroAnim 0.7s 1 0s ease-in-out;
 }
 
 input[type="checkbox"] {
@@ -329,4 +322,71 @@ html.transition *:after {
 
 #clipper {
 	display: none;
+}
+
+.tooltip {
+	width: fit-content;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.tooltip .tooltiptext {
+	width: 120px;
+	background-color: var(--dark-shade);
+	color: var(--light-shade);
+	text-align: center;
+	padding: 5px 0;
+	border-radius: 6px;
+	position: absolute;
+	z-index: 1;
+	left: 125%;
+	margin-left: -50px;
+	opacity: 0;
+	transition: ease-in-out 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+	content: "";
+
+	position: absolute;
+	top: 50%;
+	right: 100%;
+	margin-top: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: transparent var(--dark-shade) transparent transparent;
+}
+
+.tooltip-visible {
+	opacity: 1 !important;
+}
+
+@keyframes heroAnim {
+	0% {
+		transform: translateY(-80px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+.heroAnim {
+	animation: heroAnim 0.7s 1 0s ease-in-out;
+}
+
+@keyframes tooltipAnim {
+	0% {
+		transform: translateY(10px);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+
+.tooltipAnim {
+	animation: tooltipAnim 0.2s 1 0s ease-in-out;
 }

@@ -5,6 +5,16 @@ if (clipboard)
 			e.preventDefault();
 
 			let toCopy = document.querySelector("#clipper").value;
+			let tooltip = document.querySelector(".tooltiptext");
+			if (!tooltip.classList.contains("tooltip-visible")) {
+				tooltip.classList.add("tooltipAnim");
+				tooltip.classList.add("tooltip-visible");
+				setTimeout(() => {
+					tooltip.classList.remove("tooltip-visible");
+					tooltip.classList.remove("tooltipAnim");
+				}, 1000);
+			}
+
 			copyClipboard(toCopy);
 		});
 	});
