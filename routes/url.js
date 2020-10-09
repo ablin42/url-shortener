@@ -18,7 +18,7 @@ router.post("/shorten", vUrl, async (req, res) => {
 		if (errors.length > 0) throw new Error("Incorrect URL");
 
 		const { longUrl } = req.body;
-		const baseUrl = process.env.BASEURL;
+		const baseUrl = process.env.HOST;
 		const urlCode = shortid.generate();
 
 		if (!validUrl.isWebUri(baseUrl)) return res.status(401).json({ error: true, message: "Invalid base URL" });

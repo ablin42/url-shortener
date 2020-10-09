@@ -53,12 +53,26 @@ document.onkeypress = function (e) {
 };*/
 
 let checkbox = document.querySelector("input[name=theme]");
+if (checkbox) initTheme(); // on page load, if user has already selected a specific theme -> apply it
+
+function initTheme() {
+	let darkThemeSelected = localStorage.getItem("themeSwitch") !== null && localStorage.getItem("themeSwitch") === "dark";
+	// update checkbox
+	checkbox.checked = darkThemeSelected;
+	// update body data-theme attribute
+	darkThemeSelected
+		? document.documentElement.setAttribute("data-theme", "dark")
+		: document.documentElement.removeAttribute("data-theme");
+}
+
 checkbox.addEventListener("change", function () {
 	if (this.checked) {
 		trans();
+		localStorage.setItem("themeSwitch", "dark");
 		document.documentElement.setAttribute("data-theme", "dark");
 	} else {
 		trans();
+		localStorage.removeItem("themeSwitch");
 		document.documentElement.setAttribute("data-theme", "light");
 	}
 });
