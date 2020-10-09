@@ -21,7 +21,7 @@ router.post("/shorten", vUrl, async (req, res) => {
 		const baseUrl = process.env.HOST;
 		const urlCode = shortid.generate();
 
-		if (!validUrl.isWebUri("http://" + baseUrl)) return res.status(401).json({ error: true, message: "Invalid base URL" });
+		//if (!validUrl.isWebUri("http://" + baseUrl)) return res.status(401).json({ error: true, message: "Invalid base URL" });
 
 		if (validUrl.isWebUri(longUrl)) {
 			var [err, url] = await utils.promise(Url.findOne({ longUrl }));
