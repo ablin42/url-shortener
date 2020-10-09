@@ -9,6 +9,12 @@ app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+if (process.env.ENVIRONMENT === "prod")
+	app.use(function (req, res, next) {
+		if (req.headers.host === "makeshrt.herokuapp.com") return res.status(301).redirect("http://" + process.env.HOST + req.url);
+		else return next();
+	});
+
 // Middleware
 //-- Body parser --//
 // Parse app/x-www-form-urlencoded
