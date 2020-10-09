@@ -136,6 +136,14 @@ select:-webkit-autofill {
 			color: var(--main-light);
 			text-shadow: 1px 1px #4e4e4e7d;
 		}
+
+		h1,
+		h2 {
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
 	}
 }
 
@@ -253,6 +261,10 @@ select:-webkit-autofill {
 	@include fluid-type($min_width, $max_width, 170px, 250px);
 	font-weight: 600;
 	text-shadow: 5px 5px 20px rgba(43, 43, 43, 0.5);
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 .btn-404 {

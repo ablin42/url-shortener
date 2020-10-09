@@ -133,6 +133,14 @@ select:-webkit-autofill {
   }
 }
 
+.container .hero-text h1,
+.container .hero-text h2 {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .form-wrapper {
   position: relative;
   width: 100%;
@@ -297,6 +305,10 @@ select:-webkit-autofill {
   color: var(--main);
   font-weight: 600;
   text-shadow: 5px 5px 20px rgba(43, 43, 43, 0.5);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .not-found {
