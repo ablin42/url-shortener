@@ -113,7 +113,7 @@ select:-webkit-autofill {
 }
 
 .container {
-	height: 95%;
+	height: 90vh;
 	display: flex;
 	align-items: center;
 	flex-direction: column;
@@ -250,7 +250,7 @@ select:-webkit-autofill {
 /* 404 */
 .not-found {
 	color: var(--main);
-	font-size: 250px;
+	@include fluid-type($min_width, $max_width, 170px, 250px);
 	font-weight: 600;
 	text-shadow: 5px 5px 20px rgba(43, 43, 43, 0.5);
 }
@@ -423,4 +423,10 @@ html.transition *:before,
 html.transition *:after {
 	transition: all 750ms !important;
 	transition-delay: 0 !important;
+}
+
+@media (max-height: 350px) {
+	.container {
+		height: auto !important;
+	}
 }
