@@ -27,7 +27,7 @@ router.post("/", vUrl, async (req, res) => {
 		if (validUrl.isWebUri(longUrl)) {
 			let options = {
 				method: "POST",
-				uri: `${process.env.BASEURL}/api/url/shorten`, //change URL here
+				uri: `${process.env.BASEURL}/api/url/shorten`,
 				body: { longUrl },
 				json: true
 			};
@@ -37,13 +37,13 @@ router.post("/", vUrl, async (req, res) => {
 					return res.status(200).redirect(`/link/${urlObj.urlCode}`);
 				})
 				.catch(function (err) {
-					console.error("An error occured while processing the query", err);
+					console.log("An error occured while processing the query", err);
 					//display flash message here
 					return res.status(200).redirect(`/`);
 				});
 		} else throw new Error("Invalid long URL");
 	} catch (err) {
-		console.error("Post URL error:", err);
+		console.log("Post URL error:", err);
 		//flash msg and redirect to /
 		return res.status(500).redirect(`/`);
 	}
@@ -63,7 +63,7 @@ router.get("/:urlCode", vCode, async (req, res) => {
 		if (url) return res.status(200).redirect(url.longUrl);
 		else return res.status(404).json({ error: true, message: "No URL found" });
 	} catch (err) {
-		console.error("Get URL error:", err.message);
+		console.log("Get URL error:", err.message);
 		return res.status(500).json({ error: true, message: err.message });
 	}
 });
@@ -82,7 +82,7 @@ router.get("/link/:urlCode", vCode, async (req, res) => {
 		if (url) return res.status(200).render("link", url);
 		else throw new Error("URL not found");
 	} catch (err) {
-		console.error("Display URL error:", err.message);
+		console.log("Display URL error:", err.message);
 		//redirect to home and display a flash message
 		return res.status(500).redirect("/");
 	}

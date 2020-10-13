@@ -40,7 +40,7 @@ router.post("/shorten", vUrl, async (req, res) => {
 			}
 		} else return res.status(401).json({ error: true, message: "Invalid long URL" });
 	} catch (err) {
-		console.error("Shorten api error:", err.message);
+		console.log("Shorten api error:", err.message);
 		return res.status(200).json({ error: true, message: err.message });
 	}
 });

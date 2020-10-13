@@ -36,7 +36,7 @@ app.get("*", (req, res) => {
 		};
 		res.status(404).render("404", obj);
 	} catch (err) {
-		console.error("404 PAGE ERROR:", err.message);
+		console.log("404 PAGE ERROR:", err.message);
 		res.status(500).render("views/index", { active: "Home" });
 	}
 });
