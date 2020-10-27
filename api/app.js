@@ -52,7 +52,8 @@ app.get("*", (req, res) => {
     //res.status(404).json({ error: true, message: "404 Not Found" });
   } catch (err) {
     console.log("404 PAGE ERROR:", err.message);
-    res.status(404).json({ error: true, message: "404 Not Found" });
+    //res.status(404).json({ error: true, message: "404 Not Found" });
+    return res.sendFile(path.join(__dirname, "../app/build/index.html"));
   }
 });
 

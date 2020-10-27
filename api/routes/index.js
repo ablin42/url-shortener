@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const rp = require("request-promise");
 const path = require("path");
-const validUrl = require("valid-url");
+const { validationResult } = require("express-validator");
 
 const utils = require("../utils");
 const Url = require("../models/Url");
-const { validationResult } = require("express-validator");
-const { vUrl, vCode } = require("../validators/vUrl");
+const { vCode } = require("../validators/vUrl");
 
+// @route   GET
+// @desc    Landing page, shorten url form
 router.get("/", async (req, res) => {
   try {
     //return res.status(200).render("index");
