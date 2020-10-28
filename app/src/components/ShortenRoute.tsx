@@ -114,6 +114,8 @@ function FetchShortened() {
 
         setState(response.data);
       } catch (err) {
+        console.log("bide");
+        //set flash message here
         // catch error here handle
         window.location.href = "/";
       }

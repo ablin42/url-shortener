@@ -40,11 +40,11 @@ function ShortenForm() {
         if (response.status === 200)
           window.location.href = "/link/" + response.data.urlCode;
 
-        // else handle error, display msg
+        // display flash msg
         console.log(response);
       })
       .catch(function (error) {
-        // else handle error, display msg
+        // display flash msg
         console.log(error);
       });
   }

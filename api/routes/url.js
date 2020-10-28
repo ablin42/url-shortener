@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const validUrl = require("valid-url");
 const shortid = require("shortid");
-const rp = require("request-promise");
 require("dotenv").config();
 
 const utils = require("../utils");
@@ -61,7 +60,7 @@ router.get("/:urlCode", async (req, res) => {
     if (url) return res.status(200).json(url);
     else return res.status(404).json({ error: true, message: "No URL found" });
   } catch (err) {
-    console.log("Get URL error:", err.message);
+    console.log("Get URL API error:", err.message);
     return res.status(500).json({ error: true, message: err.message });
   }
 });
