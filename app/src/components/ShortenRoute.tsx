@@ -1,155 +1,151 @@
 import React, { useState, useEffect } from "react";
-import {
-  Switch,
-  Route,
-  useRouteMatch,
-  useParams,
-  Redirect,
-} from "react-router-dom";
+import { Switch, Route, useRouteMatch, useParams, Redirect } from "react-router-dom";
 import "../index.css";
 import axios from "axios";
 
 import HomeBtn from "./HomeBtn";
 import NotFound from "./NotFound";
+import { createAlertNode, addAlert } from "../utils/alert";
 
 interface UrlType {
-  id: string;
+	id: string;
 }
 
 type CardProps = {
-  id: string;
-  longUrl: string;
-  shortUrl: string;
+	id: string;
+	longUrl: string;
+	shortUrl: string;
 };
 
 interface UrlObject {
-  _id: string;
-  longUrl: string;
-  shortUrl: string;
-  urlCode: string;
-  date: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
+	_id: string;
+	longUrl: string;
+	shortUrl: string;
+	urlCode: string;
+	date: string;
+	createdAt: string;
+	updatedAt: string;
+	__v: number;
 }
 
 function Shortened({ id, longUrl, shortUrl }: CardProps) {
-  function handleClipboard(e: React.MouseEvent<HTMLElement>) {
-    e.preventDefault();
-    let toCopy = document.querySelector("#clipper") as HTMLInputElement;
-    let value = toCopy.value;
-    let tooltip = document.querySelector(".tooltiptext");
+	function handleClipboard(e: React.MouseEvent<HTMLElement>) {
+		e.preventDefault();
+		let toCopy = document.querySelector("#clipper") as HTMLInputElement;
+		let value = toCopy.value;
+		let tooltip = document.querySelector(".tooltiptext");
 
-    if (tooltip && !tooltip.classList.contains("tooltip-visible")) {
-      tooltip.classList.add("tooltipAnim");
-      tooltip.classList.add("tooltip-visible");
-      setTimeout(() => {
-        if (tooltip) {
-          tooltip.classList.remove("tooltip-visible");
-          tooltip.classList.remove("tooltipAnim");
-        }
-      }, 1000);
-    }
+		if (tooltip && !tooltip.classList.contains("tooltip-visible")) {
+			tooltip.classList.add("tooltipAnim");
+			tooltip.classList.add("tooltip-visible");
+			setTimeout(() => {
+				if (tooltip) {
+					tooltip.classList.remove("tooltip-visible");
+					tooltip.classList.remove("tooltipAnim");
+				}
+			}, 1000);
+		}
 
-    copyClipboard(value);
-  }
+		copyClipboard(value);
+	}
 
-  function copyClipboard(value: string) {
-    let tempInput = document.createElement("input");
-    tempInput.value = value;
+	function copyClipboard(value: string) {
+		let tempInput = document.createElement("input");
+		tempInput.value = value;
 
-    document.body.appendChild(tempInput);
-    tempInput.select();
-    document.execCommand("copy");
-    document.body.removeChild(tempInput);
-  }
+		document.body.appendChild(tempInput);
+		tempInput.select();
+		document.execCommand("copy");
+		document.body.removeChild(tempInput);
+	}
 
-  return (
-    <div className="url-container">
-      <div className="clipboard-wrapper">
-        <div className="tooltip">
-          <h2 data-clipboard="" onClick={handleClipboard}>
-            Copy to clipboard
-          </h2>
-          <a data-clipboard="" onClick={handleClipboard} href="./#">
-            <i className="fas fa-copy"></i>
-          </a>
+	return (
+		<div className="url-container">
+			<div className="clipboard-wrapper">
+				<div className="tooltip">
+					<h2 data-clipboard="" onClick={handleClipboard}>
+						Copy to clipboard
+					</h2>
+					<a data-clipboard="" onClick={handleClipboard} href="./#">
+						<i className="fas fa-copy"></i>
+					</a>
 
-          <span className="tooltiptext">Copied!</span>
-        </div>
-      </div>
-      <a
-        target="_blank"
-        href={longUrl}
-        rel="noopener noreferrer"
-        className="shortened-link heroAnim"
-      >
-        xs-url.fr/{id}
-      </a>
-      <input type="hidden" value={"http://" + shortUrl} id="clipper" />
+					<span className="tooltiptext">Copied!</span>
+				</div>
+			</div>
+			<a target="_blank" href={longUrl} rel="noopener noreferrer" className="shortened-link heroAnim">
+				xs-url.fr/{id}
+			</a>
+			<input type="hidden" value={"http://" + shortUrl} id="clipper" />
 
-      <HomeBtn></HomeBtn>
-    </div>
-  );
+			<HomeBtn></HomeBtn>
+		</div>
+	);
 }
 
 function FetchShortened() {
-  const [state, setState] = useState<UrlObject>({
-    _id: "",
-    longUrl: "",
-    shortUrl: "",
-    urlCode: "",
-    date: "",
-    createdAt: "",
-    updatedAt: "",
-    __v: 0,
-  });
-  let { id } = useParams<UrlType>();
+	const [state, setState] = useState<UrlObject>({
+		_id: "",
+		longUrl: "",
+		shortUrl: "",
+		urlCode: "",
+		date: "",
+		createdAt: "",
+		updatedAt: "",
+		__v: 0
+	});
 
-  useEffect(() => {
-    (async function () {
-      try {
-        let url = "/api/url/" + id;
-        const response = await axios.get(url);
+	const [loadState, setLoad] = useState({
+		message: "Loading..."
+	});
+	let { id } = useParams<UrlType>();
 
-        setState(response.data);
-      } catch (err) {
-        console.log("bide");
-        //set flash message here
-        // catch error here handle
-        window.location.href = "/";
-      }
-    })();
-  }, [id]);
+	useEffect(() => {
+		(async function () {
+			try {
+				let url = "/api/url/" + id;
+				const response = await axios.get(url);
 
-  return state._id.length ? (
-    <Shortened
-      id={state._id}
-      longUrl={state.longUrl}
-      shortUrl={state.shortUrl}
-    />
-  ) : (
-    <div className="hero-text">
-      <h1 className="">Loading...</h1>
-    </div>
-  );
+				if (!response.data.error) setState(response.data);
+				else {
+					let alert = createAlertNode(response.data.message, "error");
+					addAlert(alert, "#alert-wrapper");
+
+					setLoad({ message: "This URL does not exist" });
+				}
+			} catch (err) {
+				let alert = createAlertNode("An error occured while fetching this URL", "error");
+				addAlert(alert, "#alert-wrapper");
+
+				setLoad({ message: "This URL does not exist" });
+			}
+		})();
+	}, [id]);
+
+	return state._id.length ? (
+		<Shortened id={state._id} longUrl={state.longUrl} shortUrl={state.shortUrl} />
+	) : (
+		<div className="hero-text">
+			<h1>{loadState.message}</h1>
+			<h2>Press this button to go home</h2>
+			<HomeBtn></HomeBtn>
+		</div>
+	);
 }
 
 function ShortenRoute() {
-  let match = useRouteMatch();
+	let match = useRouteMatch();
 
-  console.log("agligli", match);
-
-  return (
-    <Switch>
-      <Route exact path={`${match.url}/:id`}>
-        <FetchShortened></FetchShortened>
-      </Route>
-      <Route path={match.path}>
-        <NotFound></NotFound>
-      </Route>
-    </Switch>
-  );
+	return (
+		<Switch>
+			<Route exact path={`${match.url}/:id`}>
+				<FetchShortened></FetchShortened>
+			</Route>
+			<Route path={match.path}>
+				<NotFound></NotFound>
+			</Route>
+		</Switch>
+	);
 }
 
 export default ShortenRoute;

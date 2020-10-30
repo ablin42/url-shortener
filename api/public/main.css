@@ -101,7 +101,7 @@ select:-webkit-autofill {
 
 @media screen and (min-width: 500px) {
   .container .hero-text h1 {
-    font-size: calc( 28px + 37 * ((100vw - 500px) / 1420));
+    font-size: calc( 28px + 37 * ((100vw - 500px) / 1420));
   }
 }
 
@@ -123,7 +123,7 @@ select:-webkit-autofill {
 
 @media screen and (min-width: 500px) {
   .container .hero-text h2 {
-    font-size: calc( 20px + 10 * ((100vw - 500px) / 1420));
+    font-size: calc( 20px + 10 * ((100vw - 500px) / 1420));
   }
 }
 
@@ -244,7 +244,7 @@ select:-webkit-autofill {
 
 @media screen and (min-width: 500px) {
   .url-container .shortened-link {
-    font-size: calc( 28px + 37 * ((100vw - 500px) / 1420));
+    font-size: calc( 28px + 37 * ((100vw - 500px) / 1420));
   }
 }
 
@@ -317,7 +317,7 @@ select:-webkit-autofill {
 
 @media screen and (min-width: 500px) {
   .not-found {
-    font-size: calc( 170px + 80 * ((100vw - 500px) / 1420));
+    font-size: calc( 170px + 80 * ((100vw - 500px) / 1420));
   }
 }
 

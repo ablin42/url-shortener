@@ -8,38 +8,36 @@ import ShortenForm from "./components/ShortenForm";
 import NotFound from "./components/NotFound";
 
 class App extends Component {
-  render() {
-    return (
-      <Router>
-        <Toggler></Toggler>
-        <div className="container">
-          <Switch>
-            <Route path="/link/">
-              <ShortenRoute></ShortenRoute>
-            </Route>
+	render() {
+		return (
+			<Router>
+				<Toggler></Toggler>
 
-            <Route exact path="/">
-              <ShortenForm></ShortenForm>
-            </Route>
+				<div id="alert-wrapper"></div>
+				<div className="container">
+					<Switch>
+						<Route path="/link/">
+							<ShortenRoute></ShortenRoute>
+						</Route>
 
-            <Route component={NotFound} />
-          </Switch>
-        </div>
+						<Route exact path="/">
+							<ShortenForm></ShortenForm>
+						</Route>
 
-        <footer className="invert">
-          <p className="footer-text">
-            <a
-              rel="noopener noreferrer"
-              target="_blank"
-              href="https://www.ablin.dev"
-            >
-              @ablin42
-            </a>
-          </p>
-        </footer>
-      </Router>
-    );
-  }
+						<Route component={NotFound} />
+					</Switch>
+				</div>
+
+				<footer className="invert">
+					<p className="footer-text">
+						<a rel="noopener noreferrer" target="_blank" href="https://www.ablin.dev">
+							@ablin42
+						</a>
+					</p>
+				</footer>
+			</Router>
+		);
+	}
 }
 
 export default App;
