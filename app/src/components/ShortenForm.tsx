@@ -38,8 +38,6 @@ function ShortenForm() {
         longUrl: longUrl,
       })
       .then(function (response) {
-        console.log(response);
-
         if (!response.data.error)
           window.location.href = "/link/" + response.data.urlCode;
         else {
@@ -48,8 +46,6 @@ function ShortenForm() {
         }
       })
       .catch(function (error) {
-        console.log(error);
-
         let alert = createAlertNode(
           "An error occured while processing your request",
           "error"
