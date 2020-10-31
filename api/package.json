@@ -2,10 +2,10 @@
   "name": "api",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/app.js",
+  "main": "build/app.js",
   "scripts": {
-    "start": "tsc && node dist/app.js",
-    "dev": "nodemon dist/app",
+    "start": "tsc && node build/app.js",
+    "dev": "nodemon build/app",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
