@@ -33,7 +33,8 @@ const router = express.Router();
 const path = __importStar(require("path"));
 router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        return res.sendFile(path.join(__dirname, "../../app/build/index.html"));
+        console.log("get route");
+        return res.sendFile(path.join(__dirname, "../../../app/build/index.html"));
     }
     catch (err) {
         console.log("Index route error", err.message);

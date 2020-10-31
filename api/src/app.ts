@@ -5,11 +5,9 @@ import * as bodyParser from "body-parser";
 import * as path from "path";
 require("dotenv").config();
 
-//app.use(express.static(path.join(__dirname + "../app/build")));
 app.use(express.static("../app/build"));
-app.set("view engine", "ejs");
-//app.set("views", path.join(__dirname, "views"));
 
+// Domain redirection
 if (process.env.ENVIRONMENT === "prod")
   app.use(function (req, res, next) {
     if (req.headers.host === "makeshrt.herokuapp.com")
@@ -17,11 +15,8 @@ if (process.env.ENVIRONMENT === "prod")
     else return next();
   });
 
-// Middleware
-//-- Body parser --//
-// Parse app/x-www-form-urlencoded
+// Body parser
 app.use(bodyParser.urlencoded({ extended: false }));
-// Parse app/json
 app.use(bodyParser.json());
 
 // Connect to db
@@ -33,12 +28,11 @@ app.use("/api/url", require("./routes/url"));
 
 app.get("*", (req, res) => {
   try {
-    return res.sendFile(path.join(__dirname, "../app/build/index.html"));
-    //res.status(404).json({ error: true, message: "404 Not Found" });
+     console.log("404 route")
+    return res.sendFile(path.join(__dirname, "../../app/build/index.html"));
   } catch (err) {
     console.log("404 PAGE ERROR:", err.message);
-    //res.status(404).json({ error: true, message: "404 Not Found" });
-    return res.sendFile(path.join(__dirname, "../app/build/index.html"));
+    return res.sendFile(path.join(__dirname, "../../app/build/index.html"));
   }
 });
 

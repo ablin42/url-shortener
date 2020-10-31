@@ -29,7 +29,6 @@ const bodyParser = __importStar(require("body-parser"));
 const path = __importStar(require("path"));
 require("dotenv").config();
 app.use(express_1.default.static("../app/build"));
-app.set("view engine", "ejs");
 if (process.env.ENVIRONMENT === "prod")
     app.use(function (req, res, next) {
         if (req.headers.host === "makeshrt.herokuapp.com")
@@ -44,11 +43,12 @@ app.use("/", require("./routes/index"));
 app.use("/api/url", require("./routes/url"));
 app.get("*", (req, res) => {
     try {
-        return res.sendFile(path.join(__dirname, "../app/build/index.html"));
+        console.log("404 route");
+        return res.sendFile(path.join(__dirname, "../../app/build/index.html"));
     }
     catch (err) {
         console.log("404 PAGE ERROR:", err.message);
-        return res.sendFile(path.join(__dirname, "../app/build/index.html"));
+        return res.sendFile(path.join(__dirname, "../../app/build/index.html"));
     }
 });
 const port = process.env.PORT;

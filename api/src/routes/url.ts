@@ -5,7 +5,6 @@ import * as validUrl from "valid-url";
 import shortid from "shortid";
 require("dotenv").config();
 
-//import * as utils from "../utils";
 const utils = require("../utils");
 import Url from "../models/Url";
 

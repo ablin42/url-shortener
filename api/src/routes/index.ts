@@ -6,7 +6,8 @@ import * as path from "path";
 // @desc    Landing page, shorten url form
 router.get("/", async (req, res) => {
   try {
-    return res.sendFile(path.join(__dirname, "../../app/build/index.html"));
+    console.log("get route")
+    return res.sendFile(path.join(__dirname, "../../../app/build/index.html"));
   } catch (err) {
     console.log("Index route error", err.message);
     return res
