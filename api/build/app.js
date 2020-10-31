@@ -29,7 +29,6 @@ const bodyParser = __importStar(require("body-parser"));
 const path = __importStar(require("path"));
 const express_sanitizer_1 = __importDefault(require("express-sanitizer"));
 const mongo_sanitize_1 = __importDefault(require("mongo-sanitize"));
-const cors_1 = __importDefault(require("cors"));
 const helmet_1 = __importDefault(require("helmet"));
 require("dotenv").config();
 app.use(express_1.default.static("../app/build"));
@@ -49,7 +48,6 @@ app.use((req, res, next) => {
     req.query = mongo_sanitize_1.default(req.query);
     next();
 });
-app.use(cors_1.default());
 app.use(helmet_1.default());
 app.use(helmet_1.default.permittedCrossDomainPolicies({}));
 app.use(helmet_1.default.referrerPolicy({ policy: "same-origin" }));
