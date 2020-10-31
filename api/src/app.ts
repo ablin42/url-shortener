@@ -36,7 +36,7 @@ app.use((req, res, next) => {
 });
 
 
-app.use(cors());
+//app.use(cors());
 
 //Helmet
 app.use(helmet());
