@@ -1,1 +1,1 @@
-web: cd ./app && npm run build && cd ../api && npm start
+web: npm start

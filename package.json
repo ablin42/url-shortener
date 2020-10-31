@@ -1,0 +1,14 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "api/build/app.js",
+  "scripts": {
+    "start": "cd ./app && npm run build && cd ../api && npm start",
+    "dev": "nodemon build/app",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ablin42",
+  "license": "ISC"
+}
