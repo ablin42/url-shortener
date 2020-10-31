@@ -1,8 +1,8 @@
-const express = require("express");
+import express from "express";
 const app = express();
-const connectDB = require("./config/db");
-const bodyParser = require("body-parser");
-const path = require("path");
+import connectDB from "./config/db";
+import * as bodyParser from "body-parser";
+import * as path from "path";
 require("dotenv").config();
 
 //app.use(express.static(path.join(__dirname + "../app/build")));

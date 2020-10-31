@@ -1,9 +1,12 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 require("dotenv").config();
+
+let CONNECTION_STRING = process.env.DB_CONNECTION;
 
 const connectDB = async () => {
 	try {
-		await mongoose.connect(process.env.DB_CONNECTION, {
+		if (!CONNECTION_STRING) throw new Error("Database auth not provided");
+		await mongoose.connect(CONNECTION_STRING, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true
 		});
@@ -14,4 +17,4 @@ const connectDB = async () => {
 	}
 };
 
-module.exports = connectDB;
+export default connectDB;

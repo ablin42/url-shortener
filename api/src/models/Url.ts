@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const UrlSchema = new mongoose.Schema({
     urlCode: {
@@ -16,4 +16,4 @@ const UrlSchema = new mongoose.Schema({
     date: {type: String, default: Date.now}
 }, {timestamps: true});
 
-module.exports = mongoose.model('Url', UrlSchema)
+export default mongoose.model('Url', UrlSchema)
