@@ -4,7 +4,7 @@
   "description": "",
   "main": "api/build/app.js",
   "scripts": {
-    "start": "cd ./app && npm install && npm run build && cd ../api && npm install && npm start",
+    "start": "cd ./api && npm install && npm start",
     "dev": "nodemon build/app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
