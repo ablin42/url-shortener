@@ -36,11 +36,13 @@ app.use((req, res, next) => {
 });
 
 
-//app.use(cors());
+app.use(cors());
 
 //Helmet
 app.use(helmet());
-app.use(helmet.permittedCrossDomainPolicies({}));
+app.use(helmet.permittedCrossDomainPolicies({
+    permittedPolicies: "all",
+  }));
 app.use(helmet.referrerPolicy({ policy: "same-origin" }));
 app.use(
 	helmet.contentSecurityPolicy({
