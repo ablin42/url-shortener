@@ -5,6 +5,8 @@ import * as bodyParser from "body-parser";
 import * as path from "path";
 import expressSanitizer from "express-sanitizer";
 import sanitize from "mongo-sanitize";
+import cors from "cors";
+import helmet from "helmet";
 require("dotenv").config();
 
 app.use(express.static("../app/build"));
@@ -16,6 +18,9 @@ if (process.env.ENVIRONMENT === "prod")
       return res.status(301).redirect("http://" + process.env.HOST + req.url);
     else return next();
   });
+
+// Connect to db
+connectDB();
 
 // Body parser
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -30,7 +35,9 @@ app.use((req, res, next) => {
 	next();
 });
 
-/*
+
+app.use(cors());
+
 //Helmet
 app.use(helmet());
 app.use(helmet.permittedCrossDomainPolicies({}));
@@ -39,41 +46,36 @@ app.use(
 	helmet.contentSecurityPolicy({
 		directives: {
 			reportUri: "/report-violation",
-			defaultSrc: ["'self'", "maralbucket.s3.eu-west-3.amazonaws.com", "maralbucket.s3.amazonaws.com"],
-			connectSrc: ["'self'", "maralbucket.s3.eu-west-3.amazonaws.com"],
+			defaultSrc: ["'self'"],
+			connectSrc: ["'self'"],
 			styleSrc: [
 				"'self'",
-				"stackpath.bootstrapcdn.com",
-				"kit-free.fontawesome.com",
+        "kit-free.fontawesome.com",
+        "cdnjs.cloudflare.com",
 				"fonts.googleapis.com",
-				"cdnjs.cloudflare.com",
-				"'sha256-ajZEDDdILRcc4lWO9JfCUcWV8WPtU5+drQz8E5IfQ0w='",
-				"'sha256-zwHi7E6JKCpD7iSjei/XVSaXpNq1WUE8eBFAiJJV/lA='"
 			],
-			fontSrc: ["'self'", "fonts.googleapis.com", "kit-free.fontawesome.com", "fonts.gstatic.com"],
+			fontSrc: ["'self'", "fonts.googleapis.com", "kit-free.fontawesome.com", "fonts.gstatic.com", "cdnjs.cloudflare.com"],
 			scriptSrc: [
 				"'self'",
-				"cdnjs.cloudflare.com",
-				"www.googletagmanager.com",
-				"kit.fontawesome.com",
-				"stackpath.bootstrapcdn.com",
-				"https://www.google.com/recaptcha/",
-				"www.gstatic.com",
-				"maps.googleapis.com",
-				"maps.gstatic.com",
-				"js.stripe.com"
+        "kit.fontawesome.com",
+        "'sha256-p3p0cAIGaZ6GV1duF9bel8DJurtOsceM8NQ65yFnL74='",
+        "'sha256-p3p0cAIGaZ6GV1duF9bel8DJurtOsceM8NQ65yFnL74='"
 			],
-			frameSrc: ["https://www.google.com", "js.stripe.com"],
-			imgSrc: ["'self'", "data:", "maps.gstatic.com", "maralbucket.s3.amazonaws.com", "maralbucket.s3.eu-west-3.amazonaws.com"]
+			imgSrc: ["'self'", "data:"]
 		},
 		reportOnly: false
 	})
 );
 
-*/
+app.post("/report-violation", (req, res) => {
+	if (req.body) {
+		console.log("CSP Violation: ", req.ip, req.body);
+	} else {
+		console.log("CSP Violation: No data received!", req.ip);
+	}
 
-// Connect to db
-connectDB();
+	res.status(204).end();
+});
 
 // Define routes
 app.use("/", require("./routes/index"));

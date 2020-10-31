@@ -72,6 +72,13 @@
   border-color: #de0000;
 }
 
+.errorMsg {
+  color: #ea4e4e;
+  font-size: 21px;
+  margin-bottom: 5px;
+  margin-top: -20px;
+}
+
 html {
   background: url("./bg/diagonal_striped_brick.png");
   --main: #08ad5f;

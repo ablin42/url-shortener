@@ -29,6 +29,8 @@ const bodyParser = __importStar(require("body-parser"));
 const path = __importStar(require("path"));
 const express_sanitizer_1 = __importDefault(require("express-sanitizer"));
 const mongo_sanitize_1 = __importDefault(require("mongo-sanitize"));
+const cors_1 = __importDefault(require("cors"));
+const helmet_1 = __importDefault(require("helmet"));
 require("dotenv").config();
 app.use(express_1.default.static("../app/build"));
 if (process.env.ENVIRONMENT === "prod")
@@ -38,6 +40,7 @@ if (process.env.ENVIRONMENT === "prod")
         else
             return next();
     });
+db_1.default();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express_sanitizer_1.default());
@@ -46,7 +49,41 @@ app.use((req, res, next) => {
     req.query = mongo_sanitize_1.default(req.query);
     next();
 });
-db_1.default();
+app.use(cors_1.default());
+app.use(helmet_1.default());
+app.use(helmet_1.default.permittedCrossDomainPolicies({}));
+app.use(helmet_1.default.referrerPolicy({ policy: "same-origin" }));
+app.use(helmet_1.default.contentSecurityPolicy({
+    directives: {
+        reportUri: "/report-violation",
+        defaultSrc: ["'self'"],
+        connectSrc: ["'self'"],
+        styleSrc: [
+            "'self'",
+            "kit-free.fontawesome.com",
+            "cdnjs.cloudflare.com",
+            "fonts.googleapis.com",
+        ],
+        fontSrc: ["'self'", "fonts.googleapis.com", "kit-free.fontawesome.com", "fonts.gstatic.com", "cdnjs.cloudflare.com"],
+        scriptSrc: [
+            "'self'",
+            "kit.fontawesome.com",
+            "'sha256-p3p0cAIGaZ6GV1duF9bel8DJurtOsceM8NQ65yFnL74='",
+            "'sha256-p3p0cAIGaZ6GV1duF9bel8DJurtOsceM8NQ65yFnL74='"
+        ],
+        imgSrc: ["'self'", "data:"]
+    },
+    reportOnly: false
+}));
+app.post("/report-violation", (req, res) => {
+    if (req.body) {
+        console.log("CSP Violation: ", req.ip, req.body);
+    }
+    else {
+        console.log("CSP Violation: No data received!", req.ip);
+    }
+    res.status(204).end();
+});
 app.use("/", require("./routes/index"));
 app.use("/api/url", require("./routes/url"));
 app.get("*", (req, res) => {
