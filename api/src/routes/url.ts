@@ -57,6 +57,8 @@ router.post(
   }
 );
 
+// @route   GET
+// @desc   Return object URL corresponding to URLCode
 router.get("/:urlCode", async (req, res) => {
   try {
     let errors = await utils.checkValidationResult(validationResult(req));

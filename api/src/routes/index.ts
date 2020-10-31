@@ -1,22 +1,30 @@
 import * as express from "express";
 const router = express.Router();
+import { validationResult } from "express-validator";
 import * as path from "path";
+import sanitize from "mongo-sanitize";
 
-// @route   GET
-// @desc    Landing page, shorten url form
-router.get("/", async (req, res) => {
-  try {
-    console.log("get route")
+import Url from "../models/Url";
+const { vCode } = require("../validators/vUrl");
+const utils = require("../utils");
+
+// @route   GET /:code
+// @desc    Redirect to long/original URL from short URL
+router.get("/:urlCode", vCode, async (req, res) => {
+	try {
+		let errors = await utils.checkValidationResult(validationResult(req));
+		if (errors.length > 0) throw new Error("Incorrect Code");
+
+		let { urlCode } = sanitize(req.params);
+
+		var [err, url] = await utils.promise(Url.findOne({ urlCode }));
+		if (err) throw new Error("An error occured while looking for your URL");
+    if (url) return res.status(200).redirect(url.longUrl);
+    else throw new Error("No URL found");
+	} catch (err) {
+    console.log("Get URL error:", err.message);
     return res.sendFile(path.join(__dirname, "../../../app/build/index.html"));
-  } catch (err) {
-    console.log("Index route error", err.message);
-    return res
-      .status(500)
-      .json({
-        error: true,
-        message: "Service is temporarily down, come again later !",
-      });
-  }
+	}
 });
 
 module.exports = router;

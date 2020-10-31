@@ -27,7 +27,7 @@ const app = express_1.default();
 const db_1 = __importDefault(require("./config/db"));
 const bodyParser = __importStar(require("body-parser"));
 const path = __importStar(require("path"));
-const expressSanitizer = __importStar(require("express-sanitizer"));
+const express_sanitizer_1 = __importDefault(require("express-sanitizer"));
 const mongo_sanitize_1 = __importDefault(require("mongo-sanitize"));
 require("dotenv").config();
 app.use(express_1.default.static("../app/build"));
@@ -40,7 +40,7 @@ if (process.env.ENVIRONMENT === "prod")
     });
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(expressSanitizer());
+app.use(express_sanitizer_1.default());
 app.use((req, res, next) => {
     req.body = mongo_sanitize_1.default(req.body);
     req.query = mongo_sanitize_1.default(req.query);
@@ -51,12 +51,16 @@ app.use("/", require("./routes/index"));
 app.use("/api/url", require("./routes/url"));
 app.get("*", (req, res) => {
     try {
-        console.log("404 route");
         return res.sendFile(path.join(__dirname, "../../app/build/index.html"));
     }
     catch (err) {
-        console.log("404 PAGE ERROR:", err.message);
-        return res.sendFile(path.join(__dirname, "../../app/build/index.html"));
+        console.log("Index route error", err.message);
+        return res
+            .status(500)
+            .json({
+            error: true,
+            message: "Service is temporarily down, come again later !",
+        });
     }
 });
 const port = process.env.PORT;
