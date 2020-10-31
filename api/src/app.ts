@@ -3,6 +3,8 @@ const app = express();
 import connectDB from "./config/db";
 import * as bodyParser from "body-parser";
 import * as path from "path";
+import * as expressSanitizer from "express-sanitizer";
+import sanitize from "mongo-sanitize";
 require("dotenv").config();
 
 app.use(express.static("../app/build"));
@@ -18,6 +20,15 @@ if (process.env.ENVIRONMENT === "prod")
 // Body parser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// Sanitize body and query params
+app.use(expressSanitizer());
+app.use((req, res, next) => {
+	req.body = sanitize(req.body);
+	req.query = sanitize(req.query);
+
+	next();
+});
 
 // Connect to db
 connectDB();

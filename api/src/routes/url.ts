@@ -3,6 +3,7 @@ import { validationResult } from "express-validator";
 const router = express.Router();
 import * as validUrl from "valid-url";
 import shortid from "shortid";
+import sanitize from "mongo-sanitize";
 require("dotenv").config();
 
 const utils = require("../utils");
@@ -61,7 +62,7 @@ router.get("/:urlCode", async (req, res) => {
     let errors = await utils.checkValidationResult(validationResult(req));
     if (errors.length > 0) throw new Error("Incorrect Code");
 
-    let { urlCode } = req.params; //sanitize (verify code look alike a code we could have generated?)
+    let { urlCode } = sanitize(req.params);
 
     var [err, url] = await utils.promise(Url.findOne({ urlCode }));
     if (err) throw new Error("An error occured while looking for your URL");

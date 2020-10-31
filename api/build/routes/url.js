@@ -36,6 +36,7 @@ const express_validator_1 = require("express-validator");
 const router = express.Router();
 const validUrl = __importStar(require("valid-url"));
 const shortid_1 = __importDefault(require("shortid"));
+const mongo_sanitize_1 = __importDefault(require("mongo-sanitize"));
 require("dotenv").config();
 const utils = require("../utils");
 const Url_1 = __importDefault(require("../models/Url"));
@@ -83,7 +84,7 @@ router.get("/:urlCode", (req, res) => __awaiter(void 0, void 0, void 0, function
         let errors = yield utils.checkValidationResult(express_validator_1.validationResult(req));
         if (errors.length > 0)
             throw new Error("Incorrect Code");
-        let { urlCode } = req.params;
+        let { urlCode } = mongo_sanitize_1.default(req.params);
         var [err, url] = yield utils.promise(Url_1.default.findOne({ urlCode }));
         if (err)
             throw new Error("An error occured while looking for your URL");

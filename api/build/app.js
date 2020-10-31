@@ -27,6 +27,8 @@ const app = express_1.default();
 const db_1 = __importDefault(require("./config/db"));
 const bodyParser = __importStar(require("body-parser"));
 const path = __importStar(require("path"));
+const expressSanitizer = __importStar(require("express-sanitizer"));
+const mongo_sanitize_1 = __importDefault(require("mongo-sanitize"));
 require("dotenv").config();
 app.use(express_1.default.static("../app/build"));
 if (process.env.ENVIRONMENT === "prod")
@@ -38,6 +40,12 @@ if (process.env.ENVIRONMENT === "prod")
     });
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(expressSanitizer());
+app.use((req, res, next) => {
+    req.body = mongo_sanitize_1.default(req.body);
+    req.query = mongo_sanitize_1.default(req.query);
+    next();
+});
 db_1.default();
 app.use("/", require("./routes/index"));
 app.use("/api/url", require("./routes/url"));
