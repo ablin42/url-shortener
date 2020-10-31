@@ -5,11 +5,13 @@
   "main": "api/build/app.js",
   "scripts": {
     "start": "cd ./app && npm run build && cd ../api && npm start",
-    "postinstall": "tsc",
     "dev": "nodemon build/app",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "ablin42",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^4.0.5"
+  }
 }
