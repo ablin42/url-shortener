@@ -29,12 +29,11 @@ app.use(bodyParser.json());
 // Sanitize body and query params
 app.use(expressSanitizer());
 app.use((req, res, next) => {
-	req.body = sanitize(req.body);
-	req.query = sanitize(req.query);
+  req.body = sanitize(req.body);
+  req.query = sanitize(req.query);
 
-	next();
+  next();
 });
-
 
 app.use(cors());
 
@@ -43,38 +42,44 @@ app.use(helmet());
 app.use(helmet.permittedCrossDomainPolicies({}));
 app.use(helmet.referrerPolicy({ policy: "same-origin" }));
 app.use(
-	helmet.contentSecurityPolicy({
-		directives: {
-			reportUri: "/report-violation",
-			defaultSrc: ["'self'"],
-			connectSrc: ["'self'"],
-			styleSrc: [
-				"'self'",
+  helmet.contentSecurityPolicy({
+    directives: {
+      reportUri: "/report-violation",
+      defaultSrc: ["'self'"],
+      connectSrc: ["'self'"],
+      styleSrc: [
+        "'self'",
         "kit-free.fontawesome.com",
         "cdnjs.cloudflare.com",
-				"fonts.googleapis.com",
-			],
-			fontSrc: ["'self'", "fonts.googleapis.com", "kit-free.fontawesome.com", "fonts.gstatic.com", "cdnjs.cloudflare.com"],
-			scriptSrc: [
-				"'self'",
+        "fonts.googleapis.com",
+      ],
+      fontSrc: [
+        "'self'",
+        "fonts.googleapis.com",
+        "kit-free.fontawesome.com",
+        "fonts.gstatic.com",
+        "cdnjs.cloudflare.com",
+      ],
+      scriptSrc: [
+        "'self'",
         "kit.fontawesome.com",
         "'sha256-p3p0cAIGaZ6GV1duF9bel8DJurtOsceM8NQ65yFnL74='",
-        "'sha256-p3p0cAIGaZ6GV1duF9bel8DJurtOsceM8NQ65yFnL74='"
-			],
-			imgSrc: ["'self'", "data:"]
-		},
-		reportOnly: false
-	})
+        "'sha256-p3p0cAIGaZ6GV1duF9bel8DJurtOsceM8NQ65yFnL74='",
+      ],
+      imgSrc: ["'self'", "data:"],
+    },
+    reportOnly: false,
+  })
 );
 
 app.post("/report-violation", (req, res) => {
-	if (req.body) {
-		console.log("CSP Violation: ", req.ip, req.body);
-	} else {
-		console.log("CSP Violation: No data received!", req.ip);
-	}
+  if (req.body) {
+    console.log("CSP Violation: ", req.ip, req.body);
+  } else {
+    console.log("CSP Violation: No data received!", req.ip);
+  }
 
-	res.status(204).end();
+  res.status(204).end();
 });
 
 // Define routes
@@ -82,16 +87,14 @@ app.use("/", require("./routes/index"));
 app.use("/api/url", require("./routes/url"));
 
 app.get("*", (req, res) => {
-   try {
+  try {
     return res.sendFile(path.join(__dirname, "../../app/build/index.html"));
   } catch (err) {
     console.log("Index route error", err.message);
-    return res
-      .status(500)
-      .json({
-        error: true,
-        message: "Service is temporarily down, come again later !",
-      });
+    return res.status(500).json({
+      error: true,
+      message: "Service is temporarily down, come again later !",
+    });
   }
 });
 
