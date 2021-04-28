@@ -79,7 +79,7 @@ function Shortened({ id, longUrl, shortUrl }: CardProps) {
         rel="noopener noreferrer"
         className="shortened-link heroAnim"
       >
-        xs-url.fr/{id}
+        xs-url.fr/{shortUrl}
       </a>
       <input type="hidden" value={"http://" + shortUrl} id="clipper" />
 
