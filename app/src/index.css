@@ -115,6 +115,10 @@ html {
   overflow: hidden;
 }
 
+body {
+  overflow-y: auto;
+}
+
 input:focus,
 textarea:focus,
 input:-webkit-autofill:focus,
@@ -540,6 +544,46 @@ label:active:after {
 
 .tooltip-visible {
   opacity: 1 !important;
+}
+
+.entryList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  max-height: 24px;
+  margin: 3px 0;
+}
+
+.entryList a {
+  text-decoration: none;
+}
+
+.spanUrl {
+  display: inline-block;
+  color: var(--main);
+  width: 30%;
+  overflow: hidden;
+}
+
+.spanUrl a {
+  color: var(--main);
+  text-decoration: none;
+}
+
+.spanCode {
+  display: inline-block;
+  color: var(--dark-shade);
+}
+
+.spanDate {
+  display: inline-block;
+  color: var(--darker-shade);
+}
+
+.spanDelete {
+  color: #ea4e4e;
 }
 
 @-webkit-keyframes heroAnim {

@@ -6,6 +6,7 @@ import ShortenRoute from "./components/ShortenRoute";
 import Toggler from "./components/Toggler";
 import ShortenForm from "./components/ShortenForm";
 import NotFound from "./components/NotFound";
+import ListEntries from "./components/ListEntries";
 
 class App extends Component {
   render() {
@@ -16,6 +17,10 @@ class App extends Component {
         <div id="alert-wrapper"></div>
         <div className="container">
           <Switch>
+            <Route path="/list/">
+              <ListEntries />
+            </Route>
+
             <Route path="/link/">
               <ShortenRoute></ShortenRoute>
             </Route>
